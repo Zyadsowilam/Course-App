@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'detailsPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,6 +13,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.grey,
+          ),
+        ),
+        home: DetailsPage());
   }
 }
