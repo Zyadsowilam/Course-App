@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 class CustomCard extends StatelessWidget {
   final bool enroll;
   final courseName;
-  final Image image;
-  final Function onpre;
-  const CustomCard(
-      {required this.courseName,
-      required this.enroll,
-      required this.image,
-      required this.onpre});
+  final String image;
+  //final Function onpre;
+  const CustomCard({
+    required this.courseName,
+    required this.enroll,
+    required this.image,
+    //required this.onpre
+  });
   //const CustomCard({Key? key}) : super(key: key);
 
   @override
