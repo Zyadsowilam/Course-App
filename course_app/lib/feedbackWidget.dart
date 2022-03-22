@@ -23,9 +23,11 @@ class FeedBackWidget extends StatelessWidget {
             clipBehavior: Clip.antiAliasWithSaveLayer,
             height: 40,
             width: 40,
-            decoration:
-                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-            child: Image.asset(image, fit: BoxFit.fill),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                    image: AssetImage(image), fit: BoxFit.fill)),
           ),
           SizedBox(width: 10),
           Text(userName)
