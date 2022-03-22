@@ -17,7 +17,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double screenheight = MediaQuery.of(context).size.height;
-    double screenwidth = MediaQuery.of(context).size.height;
+    double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(title: Text('Coursera'), actions: [
         IconButton(

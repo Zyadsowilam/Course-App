@@ -10,6 +10,9 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenheight = MediaQuery.of(context).size.height;
+    double screenwidth = MediaQuery.of(context).size.width;
+    double en = screenwidth * (1 / 8);
     return Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 5,
@@ -23,26 +26,29 @@ class CustomCard extends StatelessWidget {
                 ],
               )),
           Expanded(
-              flex: 1,
-              child: InkWell(
+            flex: 1,
+            child: InkWell(
                 onTap: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(productName,
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Enroll',
-                        style: TextStyle(fontSize: 20, color: Colors.blue),
+                child: Container(
+                  width: screenwidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(productName,
+                          style: const TextStyle(
+                              fontSize: 2, fontWeight: FontWeight.bold)),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Enroll',
+                          style: TextStyle(fontSize: 2, color: Colors.blue),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )),
+                    ],
+                  ),
+                )),
+          )
         ]));
   }
 }
