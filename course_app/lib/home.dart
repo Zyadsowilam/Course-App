@@ -26,15 +26,17 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.search))
       ]),
       drawer: NavBar(),
-      body: Container(
-          child: ListView.builder(
-              itemCount: dummydata.product.length,
-              itemBuilder: (BuildContext context, int index) {
-                return CustomCard(
+      body: ListView.builder(
+          itemCount: dummydata.product.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+                height: (1 / 3) * screenheight,
+                width: screenwidth,
+                child: CustomCard(
                   productName: dummydata.product[index].productName,
                   image: 'testimage.png',
-                );
-              })),
+                ));
+          }),
       floatingActionButton: FloatingActionButton(
         elevation: 12,
         tooltip: 'Add Course',
