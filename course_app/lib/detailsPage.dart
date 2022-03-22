@@ -11,6 +11,7 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  //this is a function for adding the comments in a list to be shown in the page
   List<Widget> FeedBacks(Size size) {
     List<String> comments = [
       'comment1',
@@ -44,7 +45,7 @@ class _DetailsPageState extends State<DetailsPage> {
           width: size.width,
           child: ListView(
             children: [
-              //first child ---------------------------------------------------------------------
+              //the image ---------------------------------------------------------------------
               Container(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   decoration: BoxDecoration(
@@ -54,7 +55,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   width: size.width,
                   height: size.height * 2 / 5,
                   child: Image.asset('testimage.png', fit: BoxFit.fill)),
-              //second child --------------------------------------------------------------------
+              //the page content --------------------------------------------------------------------
               Container(
                   width: size.width,
                   child: Padding(
@@ -73,7 +74,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               )),
                           //second child ---------------------------------------------------------------------
                           Text('999.99\$'),
-                          //third child ---------------------------------------------------------------------
+                          //third child(buttons) ---------------------------------------------------------------------
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -113,7 +114,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           Divider(
                             color: Colors.grey,
                           ),
-                          //fifth child ---------------------------------------------------------------------
+                          //fifth child (the tab bar view)---------------------------------------------------------------------
                           Container(
                             height: size.height - 100,
                             width: double.maxFinite,

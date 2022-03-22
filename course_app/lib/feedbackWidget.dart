@@ -1,10 +1,13 @@
+// ignore_for_file: file_names, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
+// this is a custom widget for the comment bubble in feedback tab
 class FeedBackWidget extends StatelessWidget {
   final String userName;
   final String comment;
   final String image;
-  FeedBackWidget(
+  const FeedBackWidget(
       {required this.comment,
       required this.image,
       required this.userName,
@@ -13,12 +16,12 @@ class FeedBackWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Card(
         child: Padding(
       padding: EdgeInsets.all(5),
       child: Column(children: [
         Row(children: [
+          //this container is for the circle avatar image
           Container(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             height: 40,
