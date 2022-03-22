@@ -37,14 +37,13 @@ class CustomCard extends StatelessWidget {
                     children: [
                       Text(productName,
                           style: const TextStyle(
-                              fontSize: 2, fontWeight: FontWeight.bold)),
+                              fontSize: 11, fontWeight: FontWeight.bold)),
                       TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Enroll',
-                          style: TextStyle(fontSize: 2, color: Colors.blue),
-                        ),
-                      ),
+                          onPressed: () {},
+                          child: Text(
+                            'Enroll',
+                            style: TextStyle(fontSize: 11, color: Colors.blue),
+                          )),
                     ],
                   ),
                 )),
