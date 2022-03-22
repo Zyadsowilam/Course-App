@@ -42,71 +42,111 @@ class _DetailsPageState extends State<DetailsPage> {
         body: SizedBox(
           height: size.height,
           width: size.width,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                //first child ---------------------------------------------------------------------
-                Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              //first child ---------------------------------------------------------------------
+              Expanded(
+                flex: 2,
+                child: Container(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10))),
                     width: size.width,
-                    height: 300,
+                    height: 200,
                     child: Image.asset('testimage.png', fit: BoxFit.fill)),
-                //second child --------------------------------------------------------------------
-                Container(
+              ),
+              //second child --------------------------------------------------------------------
+              Expanded(
+                flex: 3,
+                child: Container(
                     width: size.width,
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          //first child ---------------------------------------------------------------------
-                          Text('title',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              )),
-                          //second child ---------------------------------------------------------------------
-                          Text('Rating'),
-                          //third child ---------------------------------------------------------------------
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.download_sharp),
+                      child: DefaultTabController(
+                        length: 3,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            //first child ---------------------------------------------------------------------
+                            Text('title',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            //second child ---------------------------------------------------------------------
+                            Text('999.99\$'),
+                            //third child ---------------------------------------------------------------------
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.download_sharp),
+                                ),
+                                Spacer(),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.thumb_up_alt_outlined),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(Icons.thumb_down_alt_outlined),
+                                )
+                              ],
+                            ),
+                            //forth child ---------------------------------------------------------------------
+                            Container(
+                              child: TabBar(
+                                  labelColor: Colors.black,
+                                  unselectedLabelColor: Colors.grey,
+                                  indicatorColor: Colors.black,
+                                  tabs: [
+                                    Tab(
+                                      text: 'OverView',
+                                    ),
+                                    Tab(
+                                      text: 'FeedBack',
+                                    ),
+                                    Tab(
+                                      text: '3',
+                                    )
+                                  ]),
+                            ),
+                            Divider(
+                              color: Colors.grey,
+                            ),
+                            //fifth child ---------------------------------------------------------------------
+                            Expanded(
+                              child: Container(
+                                width: double.maxFinite,
+                                child: TabBarView(children: [
+                                  ListView(
+                                    children: [
+                                      Text('Rating'),
+                                      Text('description',
+                                          style: TextStyle(fontSize: 16)),
+                                    ],
+                                  ),
+                                  ListView(children: [
+                                    Text('Comments:',
+                                        style: TextStyle(fontSize: 16)),
+                                    Column(children: FeedBacks(size))
+                                  ]),
+                                  Text('Test')
+                                ]),
                               ),
-                              Spacer(),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.thumb_up_alt_outlined),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.thumb_down_alt_outlined),
-                              )
-                            ],
-                          ),
-                          //forth child ---------------------------------------------------------------------
-                          Text('description', style: TextStyle(fontSize: 16)),
-                          Divider(
-                            color: Colors.grey,
-                          ),
-                          //fifth child ---------------------------------------------------------------------
-                          Text('Comments:', style: TextStyle(fontSize: 16)),
-                          Column(children: FeedBacks(size))
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ))
-              ],
-            ),
+                    )),
+              )
+            ],
           ),
         ));
   }
