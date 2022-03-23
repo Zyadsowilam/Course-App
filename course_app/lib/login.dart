@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:text_divider/text_divider.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 
+void main() {
+  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: Login()));
+}
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -62,21 +66,12 @@ class _MyAppState extends State<Login> {
                 },
                 controller: signpassctr,
                 keyboardType: TextInputType.visiblePassword,
-                obscureText: isscure2,
+                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                   labelText: 'Password',
-                  suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isscure2 = !isscure2;
-                        });
-                      },
-                      icon: isscure2
-                          ? Icon(Icons.visibility_sharp)
-                          : Icon(Icons.visibility_off)),
                 ),
               ),
             ),
@@ -96,20 +91,11 @@ class _MyAppState extends State<Login> {
                 },
                 controller: signpassctr2,
                 keyboardType: TextInputType.visiblePassword,
-                obscureText: isscure2,
+                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15)),
                   labelText: 'Confirm  Password',
-                  suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isscure2 = !isscure2;
-                        });
-                      },
-                      icon: isscure2
-                          ? Icon(Icons.visibility_sharp)
-                          : Icon(Icons.visibility_off)),
                 ),
               ),
             ),
@@ -140,162 +126,142 @@ class _MyAppState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldkey,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 90),
-        child: Row(
-          children: [
-            Expanded(
-                child: Container(
-              color: Colors.teal[300],
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Coursera',
-                    style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: Color(mycolor)),
+      body: SafeArea(
+        child: Container(
+          alignment: Alignment.center,
+          width: double.infinity,
+          height: double.infinity,
+          color: Colors.teal[800],
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.only(left: 30, right: 30),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                      'Your way to know every thing about your interested courses',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.grey[200]))
-                ],
-              ),
-            )),
-            Expanded(
-                child: SingleChildScrollView(
-              child: Container(
-                height: 8000,
-                color: Color(mycolor),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Form(
-                    key: formkey,
-                    child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 27,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 55,
-                          ),
-                          Text(
-                            'Welcome to courera',
-                            style: TextStyle(
-                              color: Colors.grey[400],
-                              fontSize: 18,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Email address can not be empty';
-                              }
-                              return null;
-                            },
-                            controller: emailctr,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              suffixIcon: Icon(Icons.person),
-                            ),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'password address can not be empty';
-                              }
-                              return null;
-                            },
-                            controller: passctr,
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: isscure,
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isscure = !isscure;
-                                    });
-                                  },
-                                  icon: isscure
-                                      ? Icon(Icons.visibility_sharp)
-                                      : Icon(Icons.visibility_off)),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              if (formkey.currentState!.validate()) {
-                                print('fuck uu');
-                              }
-                            },
-                            child:
-                                Text('sign in', style: TextStyle(fontSize: 17)),
-                            style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(horizontal: 40),
-                                primary: Colors.teal[300],
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50))),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          TextDivider.horizontal(
-                              text: Text('or'),
+                  color: Colors.white),
+              child: Padding(
+                padding: EdgeInsets.all(21),
+                child: Form(
+                  key: formkey,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Login',
+                          style: TextStyle(
                               color: Colors.black,
-                              size: 50,
-                              thickness: .7),
-                          SizedBox(
-                            height: 20,
+                              fontSize: 27,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 55,
+                        ),
+                        Text(
+                          'Welcome to coursera',
+                          style: TextStyle(
+                            color: Colors.grey[400],
+                            fontSize: 18,
                           ),
-                          Row(
-                            children: [
-                              Text('New account ?',
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Email address can not be empty';
+                            }
+                            return null;
+                          },
+                          controller: emailctr,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            suffixIcon: Icon(Icons.person),
+                          ),
+                        ),
+                        TextFormField(
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'password address can not be empty';
+                            }
+                            return null;
+                          },
+                          controller: passctr,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: isscure,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isscure = !isscure;
+                                  });
+                                },
+                                icon: isscure
+                                    ? Icon(Icons.visibility_sharp)
+                                    : Icon(Icons.visibility_off)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (formkey.currentState!.validate()) {
+                              print('thanks');
+                            }
+                          },
+                          child:
+                              Text('sign in', style: TextStyle(fontSize: 17)),
+                          style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(horizontal: 40),
+                              primary: Colors.teal[700],
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50))),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextDivider.horizontal(
+                            text: Text('or'),
+                            color: Colors.black,
+                            size: 50,
+                            thickness: .7),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('New account ?',
+                                style: TextStyle(
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.bold)),
+                            TextButton(
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                      backgroundColor: Colors.grey[200],
+                                      context: context,
+                                      builder: signsheet,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(10))));
+                                },
+                                child: Text(
+                                  'Sign up',
                                   style: TextStyle(
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.bold)),
-                              TextButton(
-                                  onPressed: () {
-                                    showModalBottomSheet(
-                                        backgroundColor: Colors.grey[200],
-                                        context: context,
-                                        builder: signsheet,
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(10))));
-                                  },
-                                  child: Text(
-                                    'Sign up',
-                                    style: TextStyle(
-                                        color: Colors.black38,
-                                        decoration: TextDecoration.underline),
-                                  ))
-                            ],
-                          )
-                        ]),
-                  ),
+                                      color: Colors.black38,
+                                      decoration: TextDecoration.underline),
+                                ))
+                          ],
+                        )
+                      ]),
                 ),
               ),
-            ))
-          ],
+            ),
+          ),
         ),
       ),
     );
