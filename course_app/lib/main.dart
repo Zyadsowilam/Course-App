@@ -1,7 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:course_app/home.dart';
 import 'package:flutter/material.dart';
 import 'detailsPage.dart';
 import 'home.dart';
+import 'login.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,12 +19,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        routes: {
+          'login': (context) => Login(),
+          'home': (conext) => Home(),
+          'details': (context) => DetailsPage()
+        },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.grey,
+            primarySwatch: Colors.teal,
           ),
         ),
-        home: Home());
+        initialRoute: 'details');
   }
 }

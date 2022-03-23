@@ -16,27 +16,31 @@ class FeedBackWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: Padding(
-      padding: EdgeInsets.all(5),
-      child: Column(children: [
-        Row(children: [
-          //this container is for the circle avatar image
-          Container(
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: AssetImage(image), fit: BoxFit.fill)),
-          ),
-          SizedBox(width: 10),
-          Text(userName)
+    return Container(
+      width: double.maxFinite,
+      height: 150,
+      child: Card(
+          child: Padding(
+        padding: EdgeInsets.all(5),
+        child: Column(children: [
+          Row(children: [
+            //this container is for the circle avatar image
+            Container(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage(image), fit: BoxFit.fill)),
+            ),
+            SizedBox(width: 10),
+            Text(userName)
+          ]),
+          Text(comment)
         ]),
-        Text(comment)
-      ]),
-    ));
+      )),
+    );
   }
 }

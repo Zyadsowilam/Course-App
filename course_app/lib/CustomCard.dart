@@ -3,36 +3,40 @@ import 'package:flutter/material.dart';
 class CustomCard extends StatelessWidget {
   final String productName;
   final String image;
-  CustomCard({
-    required this.productName,
-    required this.image,
-  });
+  final String tag;
+  final VoidCallback onItemTap;
+  const CustomCard(
+      {required this.onItemTap,
+      required this.tag,
+      required this.productName,
+      required this.image,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenheight = MediaQuery.of(context).size.height;
-    double screenwidth = MediaQuery.of(context).size.width;
-    double en = screenwidth * (1 / 8);
-    return Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 5,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        child: Row(children: [
-          Expanded(
-              flex: 1,
-              child: Stack(
-                children: [
-                  Image.asset(image, fit: BoxFit.contain),
-                ],
-              )),
-          Expanded(
-            flex: 1,
-            child: InkWell(
-                onTap: () {},
+    Size size = MediaQuery.of(context).size;
+    return SizedBox(
+      width: size.width,
+      height: size.height * 1 / 3,
+      child: InkWell(
+        onTap: onItemTap,
+        child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            elevation: 5,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            child: Row(children: [
+              Expanded(
+                  flex: 1,
+                  child: Hero(
+                      tag: tag, child: Image.asset(image, fit: BoxFit.fill))),
+              Expanded(
+                flex: 1,
                 child: Container(
-                  width: screenwidth,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  margin: EdgeInsets.only(left: 5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(productName,
@@ -46,8 +50,10 @@ class CustomCard extends StatelessWidget {
                           )),
                     ],
                   ),
-                )),
-          )
-        ]));
+                ),
+              )
+            ])),
+      ),
+    );
   }
 }

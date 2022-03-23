@@ -29,18 +29,18 @@ class _HomeState extends State<Home> {
       body: ListView.builder(
           itemCount: dummydata.product.length,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-                height: (1 / 3) * screenheight,
-                width: screenwidth,
-                child: CustomCard(
-                  productName: dummydata.product[index].productName,
-                  image: 'testimage.png',
-                ));
+            return CustomCard(
+              tag: 'courseiamge${index}',
+              productName: dummydata.product[index].productName,
+              image: 'testimage.png',
+              onItemTap: () {
+                Navigator.of(context).pushNamed('details', arguments: index);
+              },
+            );
           }),
       floatingActionButton: FloatingActionButton(
         elevation: 12,
         tooltip: 'Add Course',
-        backgroundColor: Colors.blue,
         hoverColor: Colors.orange,
         child: Icon(Icons.add),
         onPressed: () {},
