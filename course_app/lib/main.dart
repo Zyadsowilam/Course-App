@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import 'detailsPage.dart';
 import 'home.dart';
 import 'login.dart';
+import 'test.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -30,6 +34,6 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
           ),
         ),
-        initialRoute: 'details');
+        initialRoute: 'login');
   }
 }
