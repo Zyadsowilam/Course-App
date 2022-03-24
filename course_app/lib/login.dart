@@ -78,10 +78,10 @@ class _MyAppState extends State<Login> {
                   if (value!.isEmpty) {
                     return 'password can not be empty';
                   }
-                  if (signemailctr.text != signpassctr2.text) {
+                  if (signpassctr.text != signpassctr2.text) {
                     return 'You must write the same password twice';
                   }
-                  if (signemailctr.text == signpassctr2.text) {
+                  if (signpassctr.text == signpassctr2.text) {
                     return null;
                   }
                 },
