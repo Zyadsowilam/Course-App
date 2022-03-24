@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'feedbackWidget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({Key? key}) : super(key: key);
@@ -24,134 +25,157 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    int index = ModalRoute.of(context)!.settings.arguments as int;
+    String docid = ModalRoute.of(context)!.settings.arguments as String;
+    var data =
+        FirebaseFirestore.instance.collection('courses').doc(docid).snapshots();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        body: SizedBox(
-      height: size.height,
-      width: size.width,
-      child: ListView(
-        children: [
-          //the image ---------------------------------------------------------------------
-          Container(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10))),
+      body: StreamBuilder(
+          stream: data,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                  child: SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator()));
+            }
+            return SizedBox(
+              height: size.height,
               width: size.width,
-              height: size.height * 2 / 5,
-              child: Hero(
-                  tag: 'courseiamge$index',
-                  child: Image.asset('testimage.png', fit: BoxFit.fill))),
-          //the page content --------------------------------------------------------------------
-          Container(
-              width: size.width,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: DefaultTabController(
-                  length: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      //first child ---------------------------------------------------------------------
-                      Text('title',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      //second child ---------------------------------------------------------------------
-                      Text('999.99\$'),
-                      //third child(buttons) ---------------------------------------------------------------------
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.download_sharp),
-                          ),
-                          Spacer(),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.thumb_up_alt_outlined),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.thumb_down_alt_outlined),
-                          )
-                        ],
-                      ),
-                      //forth child ---------------------------------------------------------------------
-                      Container(
-                        child: TabBar(
-                            labelColor: Colors.black,
-                            unselectedLabelColor: Colors.grey,
-                            indicatorColor: Colors.black,
-                            tabs: [
-                              Tab(
-                                text: 'OverView',
-                              ),
-                              Tab(
-                                text: 'FeedBack',
-                              ),
-                              Tab(
-                                text: '3',
-                              )
-                            ]),
-                      ),
-                      Divider(
-                        color: Colors.grey,
-                      ),
-                      //fifth child (the tab bar view)---------------------------------------------------------------------
-                      Container(
-                        height: size.height * 0.8,
-                        width: double.maxFinite,
-                        child: TabBarView(children: [
-                          Column(
+              child: ListView(
+                children: [
+                  //the image ---------------------------------------------------------------------
+                  Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10))),
+                      width: size.width,
+                      height: size.height * 2 / 5,
+                      child: Hero(
+                          tag: snapshot.data['image'].toString(),
+                          child: Image.network(
+                              snapshot.data['image'].toString(),
+                              fit: BoxFit.fill))),
+                  //the page content --------------------------------------------------------------------
+                  Container(
+                      width: size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: DefaultTabController(
+                          length: 3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text('Rating'),
-                              Text('description',
-                                  style: TextStyle(fontSize: 16)),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              Expanded(
-                                child: ListView.builder(
-                                    itemCount: comments.length,
-                                    itemBuilder: (BuildContext context, i) {
-                                      return FeedBackWidget(
-                                          comment: comments[i],
-                                          image: 'avatar.png',
-                                          userName: i.toString());
-                                    }),
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                  icon: IconButton(
-                                      icon: Icon(Icons.send_rounded),
-                                      onPressed: () {}),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                              //first child ---------------------------------------------------------------------
+                              Text(snapshot.data['name'].toString(),
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              //second child ---------------------------------------------------------------------
+                              Text('999.99\$'),
+                              //third child(buttons) ---------------------------------------------------------------------
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.download_sharp),
                                   ),
-                                  hintText: 'Comment...',
-                                ),
-                                onChanged: (value) {
-                                  comment = value;
-                                },
+                                  Spacer(),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.thumb_up_alt_outlined),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(Icons.thumb_down_alt_outlined),
+                                  )
+                                ],
+                              ),
+                              //forth child ---------------------------------------------------------------------
+                              Container(
+                                child: TabBar(
+                                    labelColor: Colors.black,
+                                    unselectedLabelColor: Colors.grey,
+                                    indicatorColor: Colors.black,
+                                    tabs: [
+                                      Tab(
+                                        text: 'OverView',
+                                      ),
+                                      Tab(
+                                        text: 'FeedBack',
+                                      ),
+                                      Tab(
+                                        text: '3',
+                                      )
+                                    ]),
+                              ),
+                              Divider(
+                                color: Colors.grey,
+                              ),
+                              //fifth child (the tab bar view)---------------------------------------------------------------------
+                              Container(
+                                height: size.height * 0.8,
+                                width: double.maxFinite,
+                                child: TabBarView(children: [
+                                  Column(
+                                    children: [
+                                      Text('Rating'),
+                                      Text(
+                                          snapshot.data['description']
+                                              .toString(),
+                                          style: TextStyle(fontSize: 16)),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Expanded(
+                                        child: ListView.builder(
+                                            itemCount: comments.length,
+                                            itemBuilder:
+                                                (BuildContext context, i) {
+                                              return FeedBackWidget(
+                                                  comment: comments[i],
+                                                  image: 'avatar.png',
+                                                  userName: i.toString());
+                                            }),
+                                      ),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          icon: IconButton(
+                                              icon: Icon(Icons.send_rounded),
+                                              onPressed: () {}),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          hintText: 'Comment...',
+                                        ),
+                                        onChanged: (value) {
+                                          comment = value;
+                                        },
+                                      )
+                                    ],
+                                  ),
+                                  Text('Test')
+                                ]),
                               )
                             ],
                           ),
-                          Text('Test')
-                        ]),
-                      )
-                    ],
-                  ),
-                ),
-              ))
-        ],
-      ),
-    ));
+                        ),
+                      ))
+                ],
+              ),
+            );
+          }),
+    );
   }
 }

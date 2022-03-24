@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:text_divider/text_divider.dart';
 
@@ -22,7 +23,31 @@ class _MyAppState extends State<Login> {
   bool isscure = true;
   bool isscure2 = true;
   int mycolor = Colors.grey[200]!.value;
-  String signupmsg = '';
+  void signup(String email, String password) async {
+    try {
+      var result = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      if (result.user != null) {
+        print('success');
+        Navigator.of(context).pop;
+      }
+    } catch (error) {
+      print("${error.toString()}");
+    }
+  }
+
+  void signin(String email, String password) async {
+    try {
+      var result = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      if (result.user != null) {
+        print('signed in');
+        Navigator.of(context).pushNamed('home');
+      }
+    } catch (error) {
+      print('${error.toString()}');
+    }
+  }
 
   Widget signsheet(context) {
     return Padding(
@@ -100,9 +125,7 @@ class _MyAppState extends State<Login> {
               child: ElevatedButton(
                 onPressed: () {
                   if (formkey2.currentState!.validate()) {
-                    print('Thanks');
-
-                    Navigator.pop(context);
+                    signup(signemailctr.text, signpassctr.text);
                   }
                 },
                 child: Text('sign up', style: TextStyle(fontSize: 17)),
@@ -207,7 +230,7 @@ class _MyAppState extends State<Login> {
                         ElevatedButton(
                           onPressed: () {
                             if (formkey.currentState!.validate()) {
-                              print('thanks');
+                              signin(emailctr.text, passctr.text);
                             }
                           },
                           child:

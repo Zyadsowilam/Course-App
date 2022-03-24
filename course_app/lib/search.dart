@@ -28,21 +28,29 @@ class _SearchPageState extends State<SearchPage> {
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear),
                   onPressed: () {
+                    setState(() {
+                      name = '';
+                    });
                     /* Clear the search field */
                   },
                 ),
                 hintText: 'Search...',
                 border: InputBorder.none),
+            onChanged: (value) {
+              setState(() {
+                name = value;
+              });
+            },
           ),
         ),
       )),
       body: StreamBuilder<QuerySnapshot>(
-        stream: (name != "" && name != null)
+        stream: (name.trim().isNotEmpty)
             ? FirebaseFirestore.instance
-                .collection('searchItems')
-                .where('searchkeywords', arrayContains: name)
+                .collection('courses')
+                .where('searchtag', arrayContains: name)
                 .snapshots()
-            : FirebaseFirestore.instance.collection('searchItems').snapshots(),
+            : FirebaseFirestore.instance.collection('courses').snapshots(),
         builder: (context, snapshot) {
           return (snapshot.connectionState == ConnectionState.waiting)
               ? Center(

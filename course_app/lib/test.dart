@@ -16,11 +16,6 @@ class _TestState extends State<Test> {
     try {
       var result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      FirebaseFirestore.instance
-          .collection('users')
-          .add({'email': email, 'role': password})
-          .then((value) => print('added user'))
-          .catchError((error) => print('therre was an error ${error}'));
     } catch (error) {
       print("${error.toString()}");
     }
@@ -32,6 +27,7 @@ class _TestState extends State<Test> {
           .signInWithEmailAndPassword(email: email, password: password);
       if (result.user != null) {
         print('signed in');
+        Navigator.of(context).pushNamed('home');
       }
     } catch (error) {
       print('${error.toString()}');

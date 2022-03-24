@@ -4,6 +4,7 @@ import 'Nav.dart';
 import './data.dart';
 import 'CustomCard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -47,9 +48,10 @@ class _HomeState extends State<Home> {
                 itemBuilder: (context, i) {
                   return CustomCard(
                       onItemTap: () {
-                        Navigator.of(context).pushNamed('details');
+                        Navigator.of(context).pushNamed('details',
+                            arguments: snapshot.data!.docs[i].id);
                       },
-                      tag: 'courseiamge${i}',
+                      tag: snapshot.data!.docs[i]['image'],
                       productName: snapshot.data!.docs[i]['name'],
                       image: snapshot.data!.docs[i]['image']);
                 });
