@@ -9,8 +9,8 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Oflutter.com'),
-            accountEmail: Text('example@gmail.com'),
+            accountName: const Text('Oflutter.com'),
+            accountEmail: const Text('example@gmail.com'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.network(
@@ -21,7 +21,7 @@ class NavBar extends StatelessWidget {
                 ),
               ),
             ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.blue,
               image: DecorationImage(
                   fit: BoxFit.fill,
@@ -30,25 +30,25 @@ class NavBar extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.playlist_add_circle_rounded),
-            title: Text('Enrolled'),
-            onTap: () => null,
+            leading: const Icon(Icons.playlist_add_circle_rounded),
+            title: const Text('Enrolled'),
+            onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.chat),
-            title: Text('Chat'),
-            onTap: () => null,
+            leading: const Icon(Icons.chat),
+            title: const Text('Chat'),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => null,
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () {},
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            title: Text('Exit'),
-            leading: Icon(Icons.exit_to_app),
+            title: const Text('Exit'),
+            leading: const Icon(Icons.exit_to_app),
             onTap: () => null,
           ),
         ],

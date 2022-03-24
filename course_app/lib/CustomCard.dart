@@ -34,7 +34,7 @@ class CustomCard extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
-                  margin: EdgeInsets.only(left: 5),
+                  margin: const EdgeInsets.only(left: 5),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +44,7 @@ class CustomCard extends StatelessWidget {
                               fontSize: 11, fontWeight: FontWeight.bold)),
                       TextButton(
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             'Enroll',
                             style: TextStyle(fontSize: 11, color: Colors.blue),
                           )),

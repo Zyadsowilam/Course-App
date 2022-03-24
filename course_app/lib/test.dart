@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
@@ -18,7 +17,7 @@ class _TestState extends State<Test> {
         body: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text('This is the data',
+        const Text('This is the data',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         Container(
             height: 250,
@@ -32,7 +31,7 @@ class _TestState extends State<Test> {
                     return Text('${snapshot.error}');
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
+                    return const Center(
                         child: SizedBox(
                             height: 20,
                             width: 20,
@@ -47,11 +46,11 @@ class _TestState extends State<Test> {
                         );
                       });
                 })),
-        SizedBox(
+        const SizedBox(
           height: 100,
         ),
         TextField(
-          decoration: InputDecoration(hintText: 'email'),
+          decoration: const InputDecoration(hintText: 'email'),
           onChanged: (value) {
             if (value.trim().isEmpty) {
               return null;
@@ -61,7 +60,7 @@ class _TestState extends State<Test> {
           },
         ),
         TextField(
-          decoration: InputDecoration(hintText: 'role'),
+          decoration: const InputDecoration(hintText: 'role'),
           onChanged: (value) {
             if (value.trim().isEmpty) {
               return null;
@@ -79,7 +78,7 @@ class _TestState extends State<Test> {
                         .add({'email': email, 'role': role})
                         .then((value) => print('added user'))
                         .catchError(
-                            (error) => print('therre was an error ${error}'));
+                            (error) => print('therre was an error $error'));
                   }
                 },
                 child: Text('Submit')))

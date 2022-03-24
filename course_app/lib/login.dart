@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:text_divider/text_divider.dart';
-import 'package:bottom_sheet/bottom_sheet.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

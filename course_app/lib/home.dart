@@ -19,18 +19,18 @@ class _HomeState extends State<Home> {
     double screenheight = MediaQuery.of(context).size.height;
     double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(title: Text('Coursera'), actions: [
+      appBar: AppBar(title: const Text('Coursera'), actions: [
         IconButton(
             onPressed: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => SearchPage())),
-            icon: Icon(Icons.search))
+            icon: const Icon(Icons.search))
       ]),
       drawer: NavBar(),
       body: ListView.builder(
           itemCount: dummydata.product.length,
           itemBuilder: (BuildContext context, int index) {
             return CustomCard(
-              tag: 'courseiamge${index}',
+              tag: 'courseiamge$index',
               productName: dummydata.product[index].productName,
               image: 'testimage.png',
               onItemTap: () {
