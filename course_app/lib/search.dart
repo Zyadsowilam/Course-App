@@ -1,8 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  String name = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,9 +24,9 @@ class SearchPage extends StatelessWidget {
         child: Center(
           child: TextField(
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
+                  icon: const Icon(Icons.clear),
                   onPressed: () {
                     /* Clear the search field */
                   },
@@ -28,6 +36,33 @@ class SearchPage extends StatelessWidget {
           ),
         ),
       )),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: (name != "" && name != null)
+            ? FirebaseFirestore.instance
+                .collection('searchItems')
+                .where('searchkeywords', arrayContains: name)
+                .snapshots()
+            : FirebaseFirestore.instance.collection('searchItems').snapshots(),
+        builder: (context, snapshot) {
+          return (snapshot.connectionState == ConnectionState.waiting)
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot data = snapshot.data!.docs[index];
+                    return Container(
+                      padding: EdgeInsets.only(top: 16),
+                      child: Column(children: [
+                        ListTile(
+                          title: Text(data['name']),
+                        )
+                      ]),
+                    );
+                  });
+        },
+      ),
     );
   }
 }

@@ -42,7 +42,7 @@ class _DetailsPageState extends State<DetailsPage> {
               width: size.width,
               height: size.height * 2 / 5,
               child: Hero(
-                  tag: 'courseiamge${index}',
+                  tag: 'courseiamge$index',
                   child: Image.asset('testimage.png', fit: BoxFit.fill))),
           //the page content --------------------------------------------------------------------
           Container(
