@@ -30,7 +30,7 @@ class CustomCard extends StatelessWidget {
               Expanded(
                   flex: 1,
                   child: Hero(
-                      tag: tag, child: Image.asset(image, fit: BoxFit.fill))),
+                      tag: tag, child: Image.network(image, fit: BoxFit.fill))),
               Expanded(
                 flex: 1,
                 child: Container(

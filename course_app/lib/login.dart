@@ -23,6 +23,7 @@ class _MyAppState extends State<Login> {
   bool isscure = true;
   bool isscure2 = true;
   int mycolor = Colors.grey[200]!.value;
+  String signupmsg = '';
 
   Widget signsheet(context) {
     return Padding(
@@ -78,10 +79,10 @@ class _MyAppState extends State<Login> {
                   if (value!.isEmpty) {
                     return 'password can not be empty';
                   }
-                  if (signemailctr.text != signpassctr2.text) {
+                  if (signpassctr.text != signpassctr2.text) {
                     return 'You must write the same password twice';
                   }
-                  if (signemailctr.text == signpassctr2.text) {
+                  if (signpassctr.text == signpassctr2.text) {
                     return null;
                   }
                 },
@@ -101,6 +102,7 @@ class _MyAppState extends State<Login> {
                 onPressed: () {
                   if (formkey2.currentState!.validate()) {
                     print('Thanks');
+
                     Navigator.pop(context);
                   }
                 },

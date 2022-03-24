@@ -20,6 +20,7 @@ class _DetailsPageState extends State<DetailsPage> {
     'comment5',
     'comment6'
   ];
+  String comment = '';
 
   @override
   Widget build(BuildContext context) {
@@ -114,14 +115,34 @@ class _DetailsPageState extends State<DetailsPage> {
                                   style: TextStyle(fontSize: 16)),
                             ],
                           ),
-                          ListView.builder(
-                              itemCount: comments.length,
-                              itemBuilder: (BuildContext context, i) {
-                                return FeedBackWidget(
-                                    comment: comments[i],
-                                    image: 'avatar.png',
-                                    userName: i.toString());
-                              }),
+                          Column(
+                            children: [
+                              Expanded(
+                                child: ListView.builder(
+                                    itemCount: comments.length,
+                                    itemBuilder: (BuildContext context, i) {
+                                      return FeedBackWidget(
+                                          comment: comments[i],
+                                          image: 'avatar.png',
+                                          userName: i.toString());
+                                    }),
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                  icon: IconButton(
+                                      icon: Icon(Icons.send_rounded),
+                                      onPressed: () {}),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  hintText: 'Comment...',
+                                ),
+                                onChanged: (value) {
+                                  comment = value;
+                                },
+                              )
+                            ],
+                          ),
                           Text('Test')
                         ]),
                       )
