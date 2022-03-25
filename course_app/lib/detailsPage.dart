@@ -191,7 +191,11 @@ class _DetailsPageState extends State<DetailsPage> {
                           ],
                         );
                       } else {
-                        return CircularProgressIndicator();
+                        return Center(
+                            child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator()));
                       }
                     }),
               ]),

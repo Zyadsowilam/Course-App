@@ -178,7 +178,7 @@ class _MyAppState extends State<Login> {
                           height: 55,
                         ),
                         Text(
-                          'Welcome to coursera',
+                          'Welcome to MI_Course',
                           style: TextStyle(
                             color: Colors.grey[400],
                             fontSize: 18,
