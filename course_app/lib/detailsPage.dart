@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'feedbackWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({Key? key}) : super(key: key);
@@ -126,8 +127,22 @@ class _DetailsPageState extends State<DetailsPage> {
               width: double.maxFinite,
               child: TabBarView(children: [
                 Column(
-                  children: const [
-                    Text('Rating'),
+                  children: [
+                    RatingBar.builder(
+                      initialRating: 3,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    )
                   ],
                 ),
                 StreamBuilder<QuerySnapshot>(

@@ -34,6 +34,6 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.teal,
           ),
         ),
-        home: Home());
+        home: Login());
   }
 }

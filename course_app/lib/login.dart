@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:text_divider/text_divider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -23,13 +24,21 @@ class _MyAppState extends State<Login> {
   bool isscure = true;
   bool isscure2 = true;
   int mycolor = Colors.grey[200]!.value;
+
+  var username = TextEditingController();
+  late SharedPreferences prefs;
+
+  saveusername(String username) async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setString('user', username);
+  }
+
   void signup(String email, String password) async {
     try {
       var result = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       if (result.user != null) {
         print('success');
-        Navigator.of(context).pop;
       }
     } catch (error) {
       print("${error.toString()}");
@@ -52,91 +61,114 @@ class _MyAppState extends State<Login> {
   Widget signsheet(context) {
     return Padding(
       padding: EdgeInsets.only(left: 10, bottom: 6, right: 10, top: 19),
-      child: Form(
-        key: formkey2,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Email address can not be empty';
-                  }
-                  return null;
-                },
-                controller: signemailctr,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  labelText: 'Email',
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'password can not be empty';
-                  }
-                  return null;
-                },
-                controller: signpassctr,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  labelText: 'Password',
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8),
-              child: TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'password can not be empty';
-                  }
-                  if (signpassctr.text != signpassctr2.text) {
-                    return 'You must write the same password twice';
-                  }
-                  if (signpassctr.text == signpassctr2.text) {
+      child: SingleChildScrollView(
+        child: Form(
+          key: formkey2,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Ur name can not be empty';
+                    }
                     return null;
-                  }
-                },
-                controller: signpassctr2,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                  labelText: 'Confirm  Password',
+                  },
+                  controller: username,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    labelText: 'User name',
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 8, right: 8, top: 8),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (formkey2.currentState!.validate()) {
-                    signup(signemailctr.text, signpassctr.text);
-                  }
-                },
-                child: Text('sign up', style: TextStyle(fontSize: 17)),
-                style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
-                    primary: Colors.teal[300],
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50))),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Email address can not be empty';
+                    }
+                    return null;
+                  },
+                  controller: signemailctr,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    labelText: 'Email',
+                  ),
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'password can not be empty';
+                    }
+                    return null;
+                  },
+                  controller: signpassctr,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    labelText: 'Password',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8),
+                child: TextFormField(
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'password can not be empty';
+                    }
+                    if (signpassctr.text != signpassctr2.text) {
+                      return 'You must write the same password twice';
+                    }
+                    if (signpassctr.text == signpassctr2.text) {
+                      return null;
+                    }
+                  },
+                  controller: signpassctr2,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    labelText: 'Confirm  Password',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 8, right: 8, top: 8),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (formkey2.currentState!.validate()) {
+                      signup(signemailctr.text, signpassctr.text);
+                      saveusername(username.text);
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text('sign up', style: TextStyle(fontSize: 17)),
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      primary: Colors.teal[300],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50))),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -178,7 +210,7 @@ class _MyAppState extends State<Login> {
                           height: 55,
                         ),
                         Text(
-                          'Welcome to MI_Course',
+                          'Welcome to MiCourse',
                           style: TextStyle(
                             color: Colors.grey[400],
                             fontSize: 18,

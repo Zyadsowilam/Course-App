@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'login.dart';
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
   const NavBar({Key? key}) : super(key: key);
+
+  @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
+  late SharedPreferences prefs;
+  String username = '';
+  getAcc() async {
+    prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.get('user');
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAcc();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +34,7 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text('Oflutter.com'),
+            accountName: Text(username),
             accountEmail: const Text('example@gmail.com'),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
