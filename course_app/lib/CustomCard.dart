@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomCard extends StatelessWidget {
+class CustomCard extends StatefulWidget {
   final String productName;
   final String image;
   final String tag;
@@ -14,23 +14,33 @@ class CustomCard extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<CustomCard> createState() => _CustomCardState();
+}
+
+class _CustomCardState extends State<CustomCard> {
+  bool enrolled = false;
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width,
       height: size.height * 1 / 3,
       child: InkWell(
-        onTap: onItemTap,
+        onTap: widget.onItemTap,
         child: Card(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             elevation: 5,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             child: Row(children: [
               Expanded(
                   flex: 1,
                   child: Hero(
-                      tag: tag, child: Image.network(image, fit: BoxFit.fill))),
+                      tag: widget.tag,
+                      child: Image.network(widget.image, fit: BoxFit.fill))),
+              const SizedBox(
+                width: 10,
+              ),
               Expanded(
                 flex: 1,
                 child: Container(
@@ -39,14 +49,21 @@ class CustomCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(productName,
-                          style: const TextStyle(
-                              fontSize: 11, fontWeight: FontWeight.bold)),
+                      Text(
+                        widget.productName,
+                        style: const TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                       TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Enroll',
-                            style: TextStyle(fontSize: 11, color: Colors.blue),
+                          onPressed: () {
+                            setState(() {
+                              enrolled = !enrolled;
+                            });
+                          },
+                          child: Text(
+                            enrolled ? "Leave" : 'Enroll',
+                            style: TextStyle(fontSize: 18, color: Colors.blue),
                           )),
                     ],
                   ),

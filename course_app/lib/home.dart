@@ -19,14 +19,12 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    double screenheight = MediaQuery.of(context).size.height;
-    double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(title: Text('Coursera'), actions: [
+      appBar: AppBar(title: const Text('MiCoursera'), actions: [
         IconButton(
             onPressed: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => SearchPage())),
-            icon: Icon(Icons.search))
+            icon: const Icon(Icons.search))
       ]),
       drawer: NavBar(),
       body: StreamBuilder<QuerySnapshot>(

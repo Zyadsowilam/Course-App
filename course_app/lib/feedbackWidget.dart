@@ -26,6 +26,7 @@ class FeedBackWidget extends StatelessWidget {
           Row(children: [
             //this container is for the circle avatar image
             Container(
+              margin: EdgeInsets.all(7),
               clipBehavior: Clip.antiAliasWithSaveLayer,
               height: 40,
               width: 40,

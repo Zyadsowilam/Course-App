@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -13,6 +12,7 @@ class _SearchPageState extends State<SearchPage> {
   String name = "";
   @override
   Widget build(BuildContext context) {
+    var ctrl = TextEditingController();
     return Scaffold(
       appBar: AppBar(
           // The search area here
@@ -24,7 +24,11 @@ class _SearchPageState extends State<SearchPage> {
         child: Center(
           child: TextField(
             decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
+                prefixIcon: IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () {
+                      setState(() {});
+                    }),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear),
                   onPressed: () {
@@ -45,7 +49,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
       )),
       body: StreamBuilder<QuerySnapshot>(
-        stream: (name.trim().isNotEmpty)
+        stream: (name.isNotEmpty)
             ? FirebaseFirestore.instance
                 .collection('courses')
                 .where('searchtag', arrayContains: name)
@@ -53,7 +57,7 @@ class _SearchPageState extends State<SearchPage> {
             : FirebaseFirestore.instance.collection('courses').snapshots(),
         builder: (context, snapshot) {
           return (snapshot.connectionState == ConnectionState.waiting)
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView.builder(
@@ -61,12 +65,19 @@ class _SearchPageState extends State<SearchPage> {
                   itemBuilder: (context, index) {
                     DocumentSnapshot data = snapshot.data!.docs[index];
                     return Container(
-                      padding: EdgeInsets.only(top: 16),
-                      child: Column(children: [
-                        ListTile(
-                          title: Text(data['name']),
-                        )
-                      ]),
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('details',
+                                      arguments: snapshot.data!.docs[index].id);
+                                },
+                                child: Text(data['name'])
+                                //Navigator.of(context).pushNamed('details', arguments: snapshot.data!.docs[i].id)
+                                )
+                          ]),
                     );
                   });
         },

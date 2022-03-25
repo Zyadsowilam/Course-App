@@ -13,14 +13,7 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   //this is a function for adding the comments in a list to be shown in the page
-  List<String> comments = [
-    'comment1',
-    'comment2',
-    'comment3',
-    'comment4',
-    'comment5',
-    'comment6'
-  ];
+
   String comment = '';
   TextEditingController commentctrl = TextEditingController();
 
@@ -109,7 +102,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                       labelColor: Colors.black,
                                       unselectedLabelColor: Colors.grey,
                                       indicatorColor: Colors.black,
-                                      tabs: [
+                                      tabs: const [
                                         Tab(
                                           text: 'OverView',
                                         ),
@@ -133,7 +126,7 @@ class _DetailsPageState extends State<DetailsPage> {
               width: double.maxFinite,
               child: TabBarView(children: [
                 Column(
-                  children: [
+                  children: const [
                     Text('Rating'),
                   ],
                 ),
@@ -153,7 +146,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                     return FeedBackWidget(
                                         comment: s.data!.docs[i]['comment'],
                                         image: 'avatar.png',
-                                        userName: i.toString());
+                                        userName: 'user ${i + 1}');
                                   }),
                             ),
                             TextField(
@@ -169,7 +162,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                             .then((value) =>
                                                 print('added comment'))
                                             .catchError((error) => print(
-                                                'therre was an error ${error}'));
+                                                'therre was an error $error'));
                                         setState(() {
                                           commentctrl.clear();
                                           comment = '';
